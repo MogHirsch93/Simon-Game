@@ -1,0 +1,122 @@
+<!DOCTYPEhtml>
+<head>
+  <style>
+    #red {
+      background-color: red;
+    }
+    #yellow {
+      background-color: yellow;
+    }
+    #green {
+      background-color: green;
+    }
+    #blue {
+      background-color: blue;
+    }
+    #start {
+      border-radius: 50%;
+      padding: 10px;
+      background-color: lightgreen;
+    }
+    .btn {
+      padding: 10px;
+    }
+    .active {
+      opacity: 0.5;
+      border: 3px solid;
+    }
+  </style>
+</head>
+<body>
+  <button id="start" onclick="startGame()">Start</button>
+  <button id="red" data-value="0" class="btn" onclick="onUserMove(this)" /></button>
+  <button id="yellow" data-value="1" class="btn" onclick="onUserMove(this)" /></button>
+  <button id="green" data-value="2" class="btn" onclick="onUserMove(this)" /></button>
+  <button id="blue" data-value="3" class="btn" onclick="onUserMove(this)" /></button>
+  <script>
+    let userMoves = [];
+    let computerMoves = [];
+    let userCounter = 0;
+    let computerCounter = 0;
+    let memoryCounter = 0;
+    let running = false;
+    let runMemory;
+    const dict = ['red', 'yellow', 'green', 'blue'];
+    
+    // flash = (element) => {
+    //   element.classList.add("active");
+    //   setTimeout(()=>{
+    //     element.classList.remove("active");
+    //   }, 250)
+    // }
+
+    function playMemory() {
+      const ind = computerMoves[memoryCounter];
+      const element = document.getElementById(dict[ind]);
+      element.classList.add("active");
+      setTimeout(function() {element.classList.remove("active");}, 250);
+      memoryCounter++;
+      if (memoryCounter == computerMoves.length) {
+        clearInterval(runMemory);
+      }
+    }
+
+    playMoves = () => {
+      memoryCounter = 0;
+      runMemory = setInterval(playMemory, 1000);
+    }
+
+    onUserMove = (button) => {
+      userMoves.push(button.getAttribute('data-value'));
+      if(running) {
+        if(userMoves[userCounter] != computerMoves[userCounter]) {
+          return lose();
+        }
+        userCounter++;
+        if(userCounter == computerCounter) {
+          return win();
+        }
+        return console.log('continue');
+      }
+    }
+
+    makeComputerMove = () => {
+      computerMoves.push(Math.round(Math.random()*3));
+      computerCounter++;
+    }
+
+    win = () => {
+      console.log('win');
+      makeComputerMove();
+      resetUser();
+    }
+
+    lose = () => {
+      console.log('lose');
+      resetUser();
+    }
+
+    resetUser = () => {
+      userMoves = [];
+      userCounter = 0;
+      playMoves();
+    }
+
+    startGame = () => {
+      running = true;
+      computerMoves = [];
+      computerCounter = 0;
+      makeComputerMove();
+      resetUser();
+    }
+
+    showState = () => {
+      console.log('running', running)
+      console.log('userMoves', userMoves)
+      console.log('computerMoves', computerMoves)
+      console.log('userCounter', userCounter)
+      console.log('computerCounter', computerCounter)
+    }
+  </script>
+</body>
+</html>
