@@ -1,0 +1,100 @@
+*,:after,:before{
+  box-sizing: border-box;
+}
+
+body{
+  text-align: center;
+  font-family: 'Pacifico', cursive;
+}
+
+button{
+  min-height: 15px;
+  min-width: 50px;
+}
+.blue{
+  background-color: blue;
+}
+.red{
+  background-color: red;
+}
+.green{
+  background-color: green;
+}
+.yellow{
+  background-color: yellow;
+}
+.blue,
+.red,
+.yellow,
+.green{
+  opacity: 0.5;
+}
+.blue:active,
+.red:active,
+.yellow:active,
+.green:active{
+  opacity: 1;
+}
+.active{
+  opacity: 1;
+}
+
+
+.gameboard {
+  position: absolute;
+  display: flex;
+  flex-wrap: wrap;
+  height: 600px;
+  width: 600px;
+  border-radius: 50%;
+  overflow: hidden;
+  padding: 0;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+
+  /*box-shadow: 10px 5px 10px orange;*/
+}
+
+.gameboard__button {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  width: 50%;
+  height: 50%;
+}
+
+.gameboard__controls{
+  position: absolute;
+  background-color: white;
+  height: 230px;
+  width: 230px;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.gameboard__control-button {
+  background-color: white;
+  border: 0;
+  border-bottom-style: solid;
+  border-bottom-color: orange;
+  border-bottom-width: 2px;
+  font-size: 1.25rem;
+  display: block;
+  width: 100%;
+  height: 33.333%;
+  font-family: 'Pacifico', cursive;
+}
+
+.gameboard__control-button:hover{
+  background-color: orange;
+  color: white;
+}
+
+.gameboard__control-button:last-child {
+  border: 0;
+}

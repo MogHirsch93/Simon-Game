@@ -1,55 +1,83 @@
-//ComputerMove
-var comp = [];
+const possibleMoves = ['blue', 'red', 'green', 'yellow']
+let computerMoves = []
+let userMoves = []
 
-//UserMove
-var user = [];
+const computerMove = () => {
+    const moveIndex = Math.round(Math.random() * 3)
+    computerMoves.push(possibleMoves[moveIndex])
 
-//Add a random whole number between 0 and 3 to the arr
-function computerMove() {
-  console.log(comp);
-    return comp.push(Math.round(Math.random() *3))
-}
+    console.log('Computer move is:')
+    console.log(computerMoves)
 
-function insert0() {
-   console.log(user);
-    return user.push(0);
-}
-function insert1() {
-console.log(user);
-    return user.push(1);
-}
-function insert2() {
-   console.log(user);
-    return user.push(2);
-}
-function insert3() {
- console.log(user);
-    return user.push(3);
-}
+    for (let i = 0; i < computerMoves.length; i++) {
+        setTimeout(() => {
+            if (i > 0) {
+                deactivate(computerMoves[i - 1])
+            }
 
-//Comparing the 2 arrays. If they aren't the same then no more actions needed.
-//So leave loop and return false.
-function compareMoves(){
-    if(comp.length !== user.length){
-      return false;
+            setTimeout(() => {
+                activate(computerMoves[i])
+            }, 250)
+
+            if( i === computerMoves.length -1 ){
+                setTimeout(() => {
+                    deactivate(computerMoves[i])
+                }, 1000)
+            }
+        }, 1000 * i)
     }
-    for (var i=0; i<comp.length; i++) {
-        if (comp[i] !== user[i]) {
-            console.log('nah mate');
-            return false;
+}
+
+const blue = () => {
+    userMoves.push('blue')
+}
+
+const red = () => {
+    userMoves.push('red')
+}
+
+const green = () => {
+    userMoves.push('green')
+}
+
+const yellow = () => {
+    userMoves.push('yellow')
+}
+
+const compareMoves = () => {
+    if (computerMoves.length !== userMoves.length) {
+        return false
+    }
+    for (var i = 0; i < computerMoves.length; i++) {
+        if (computerMoves[i] !== userMoves[i]) {
+            return false
         }
     }
-    return true;
+    return true
 }
 
-function done(){
-  while(compareMoves()){
-    computerMove();
-    user=[];
-  }
+const done = () => {
+    console.log('User move is:')
+    console.log(userMoves)
+
+    if (!compareMoves()) {
+        alert('Unlucky punk! Try again')
+    }
+    else {
+        computerMove()
+        userMoves = []
+    }
 }
 
-function reset(){
-  comp=[];
-  user=[];
+const reset = () => {
+    computerMoves = []
+    userMoves = []
+}
+
+activate = (id) => {
+    document.getElementById(id).classList.add('active')
+}
+
+deactivate = (id) => {
+    document.getElementById(id).classList.remove('active')
 }
